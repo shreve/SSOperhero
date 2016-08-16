@@ -1,0 +1,57 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0px;
+  padding: 0px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+
+.container {
+  width: 95%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.field {
+  margin-bottom: 1em;
+}
+
+.field label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: .25em;
+}
+
+.field label small {
+  display: block;
+  font-weight: normal;
+  font-style: italic;
+}
+
+.field label .error-message {
+  font-weight: normal;
+  color: red;
+}
+
+.field input {
+  padding: .3em .5em;
+  font-size: 1.1em;
+  width: 100%;
+}
+
+.button {
+  border: 0;
+  background: blue;
+  padding: .75em 1em;
+  font-size: 1.1em;
+  color: white;
+}

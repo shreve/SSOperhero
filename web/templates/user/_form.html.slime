@@ -1,0 +1,28 @@
+= form_for @changeset, user_path(@conn, :create), fn f ->
+
+  fieldset
+    - if @changeset.action do
+      .alert.alert-danger
+        p Oops, something went wrong!
+
+    .field
+      label
+        ' Username
+        = error_tag f, :name
+        small letters, numbers, and underscores only
+      = text_input f, :name
+
+    .field
+      label
+        ' Email Address
+        = error_tag f, :email
+      = text_input f, :email, type: :email
+
+    .field
+      label
+        ' Password
+        = error_tag f, :password
+      = text_input f, :password, type: :password
+
+    .action
+      = submit "Save", class: "button"

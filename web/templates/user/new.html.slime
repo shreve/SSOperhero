@@ -1,0 +1,6 @@
+h1 = "Sign Up"
+
+p
+  ' Enter your details to sign up for a SuguID.
+
+= render("_form.html", changeset: @changeset, conn: @conn)
