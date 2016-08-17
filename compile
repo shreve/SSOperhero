@@ -1,0 +1,5 @@
+echo "Create ./priv/static directory"
+mkdir -p ./priv/static/js
+
+echo "Compiling static assets"
+./node_modules/grunt/bin/grunt
