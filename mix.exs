@@ -39,7 +39,7 @@ defmodule Ssoperhero.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
 
-     {:phoenix_slime, "~> 0.6.0"}, # Templating language
+     {:phoenix_slime, "~> 0.7.0"}, # Templating language
      {:ex_admin, github: "smpallen99/ex_admin"}, # Admin interface
      {:comeonin, "~> 2.5"}, # Hashing libraries
      {:joken, "~> 1.1"} # JSON web token generator

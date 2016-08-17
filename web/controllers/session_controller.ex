@@ -5,6 +5,8 @@ defmodule Ssoperhero.SessionController do
   alias Ssoperhero.Client
   alias Ssoperhero.Token
 
+  require IEx
+
   def action(conn, _) do
     args = case Client.find_by_conn(conn) do
       {:ok, client} ->
@@ -19,7 +21,10 @@ defmodule Ssoperhero.SessionController do
     apply(__MODULE__, action_name(conn), args)
   end
 
-  require IEx
+
+  def new(conn, _assigns, client) do
+    render(conn, "new.html", client: client || %{domain: ""})
+  end
 
   def create(conn, %{"user" => %{"login" => login, "password" => password}}, client) do
     case User.authenticate(login, password) do
@@ -31,12 +36,12 @@ defmodule Ssoperhero.SessionController do
           nil ->
             conn
           client ->
-            render(conn, token: Token.create(user, client))
+            render(conn, "show.json", token: Token.create(user, client))
         end
       {:error, msg} ->
         conn
         |> put_status(:unauthorized)
-        |> render(error: msg)
+        |> render("error.json", error: msg)
     end
   end
 
@@ -50,20 +55,22 @@ defmodule Ssoperhero.SessionController do
         case client do
           nil ->
             conn
+            |> put_status(:unauthorized)
+            |> render("error.json", error: "invalid client")
           client ->
             case session_expiry(conn) do
               {:ok, expiry} ->
-                render(conn, token: Token.create(user, client, expiry))
+                render(conn, "show.json", token: Token.create(user, client, expiry))
               {:error, msg} ->
                 conn
                 |> put_status(:unauthorized)
-                |> render(error: msg)
+                |> render("error.json", error: msg, user: user)
             end
         end
       {:error, msg} ->
         conn
         |> put_status(:unauthorized)
-        |> render(error: msg)
+        |> render("error.json", error: msg)
     end
   end
 

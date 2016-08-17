@@ -3,10 +3,10 @@ defmodule Ssoperhero.Router do
   use ExAdmin.Router
 
   pipeline :browser do
-    plug :accepts, ["json"]
+    plug :accepts, ["html", "json"]
     plug :fetch_session
     plug :fetch_flash
-    plug :put_secure_browser_headers
+    # plug :put_secure_browser_headers
   end
 
   scope "/", Ssoperhero do
@@ -15,6 +15,7 @@ defmodule Ssoperhero.Router do
     get "/register", UserController, :new
     post "/register", UserController, :create
 
+    get "/", SessionController, :new
     post "/login", SessionController, :create
     get "/session", SessionController, :show
 

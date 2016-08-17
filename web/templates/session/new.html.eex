@@ -1,0 +1,10 @@
+<script type="text/javascript">
+  var init = function() {
+    SSOperhero.init({ client_url: "<%= @client.domain %>" });
+  };
+  if (SSOperhero) {
+    init();
+  } else {
+    document.scripts[0].onload = init;
+  }
+</script>

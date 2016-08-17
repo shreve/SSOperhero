@@ -16,7 +16,7 @@ config :ssoperhero,
 
 # Configures the endpoint
 config :ssoperhero, Ssoperhero.Endpoint,
-  url: [host: "phoenix.dev"],
+  url: [host: System.get_env("SSO_DOMAIN") || "phoenix.dev"],
   secret_key_base: "wMVsmzpl8I3cge86Csh84Ds6vpyF6s4CIfynx61GpI10+JARETF8Q5PDSOceZhTf",
   render_errors: [view: Ssoperhero.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Ssoperhero.PubSub,

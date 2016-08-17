@@ -37,8 +37,7 @@ defmodule Ssoperhero.Endpoint do
     store: :cookie,
     key: "_ssoperhero_key",
     signing_salt: "sDAJeTBa",
-    http_only: false,
-    domain: "phoenix.dev"
+    domain: Application.get_env(:ssoperhero, Ssoperhero.Endpoint)[:url][:host]
 
   plug Ssoperhero.Router
 end
