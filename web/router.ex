@@ -18,6 +18,7 @@ defmodule Ssoperhero.Router do
     get "/", SessionController, :new
     post "/login", SessionController, :create
     get "/session", SessionController, :show
+    get "/logout", SessionController, :destroy
 
     # scope "/embed", Ssoperhero do
     #   get "/session", SessionController, :show

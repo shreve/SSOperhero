@@ -22,7 +22,7 @@ defmodule Ssoperhero.Client do
   def find_by_conn(conn) do
     headers = conn.req_headers |> Enum.into(%{})
     sso_domain = Application.get_env(:ssoperhero, Ssoperhero.Endpoint)[:url][:host]
-    req_domain = if String.contains?(headers["referer"], "//" <> sso_domain) do
+    req_domain = if String.contains?(headers["referer"] || "", "//" <> sso_domain) do
       headers["x-origin"]
     else
       headers["origin"] || headers["referer"]

@@ -45,10 +45,6 @@ defmodule Ssoperhero.SessionController do
     end
   end
 
-  def create(conn, %{"user" => %{"password" => password}}, client) do
-    IEx.pry
-  end
-
   def show(conn, _assigns, client) do
     case current_user(conn) do
       {:ok, user} ->
@@ -72,6 +68,12 @@ defmodule Ssoperhero.SessionController do
         |> put_status(:unauthorized)
         |> render("error.json", error: msg)
     end
+  end
+
+  def destroy(conn, _assigns, _client) do
+    conn
+    |> configure_session(drop: true)
+    |> send_resp(:no_content, "")
   end
 
   defp current_user(conn) do

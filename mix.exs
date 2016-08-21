@@ -19,7 +19,7 @@ defmodule Ssoperhero.Mixfile do
   def application do
     [mod: {Ssoperhero, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin]]
+                    :phoenix_ecto, :postgrex, :comeonin, :joken, :phoenix_slime]]
   end
 
   # Specifies which paths to compile per environment.

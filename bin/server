@@ -1,0 +1,4 @@
+#!/bin/sh
+touch priv/server.pid
+kill -9 $(cat priv/server.pid)
+elixir --sname authserver --detached -e "File.write 'priv/server.pid', :os.getpid" -S mix phoenix.server

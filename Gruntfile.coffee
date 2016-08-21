@@ -7,6 +7,7 @@ module.exports = (grunt) ->
       compile:
         options:
           bare: true
+          sourceMap: true
         files:
           'priv/static/js/client.js': 'web/static/js/client.coffee'
           'priv/static/js/provider.js': 'web/static/js/provider.coffee'

@@ -1,0 +1,12 @@
+#!/bin/sh
+source /etc/profile
+
+local project_root=/apps/auth;
+local git_path=${project_root}/auth.git;
+local app_path=${project_root}/www;
+
+cd app_path;     # Move to the app directory
+git checkout f;  # Update the files with the push that just happened
+mix do deps.get, compile;
+grunt;
+bin/server;

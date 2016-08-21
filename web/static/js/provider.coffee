@@ -6,11 +6,14 @@ SSOperhero = (->
     r.open(opt.method, opt.url, true)
     r.setRequestHeader('X-Origin', document.referrer)
     r.onload = ->
-      data = JSON.parse(r.responseText)
-      if 200 >= r.status < 400
-        opt.success(data)
+      if r.status is 204
+        opt.success()
       else
-        opt.error(data)
+        data = JSON.parse(r.responseText)
+        if 200 >= r.status < 400
+          opt.success(data)
+        else
+          opt.error(data)
     if opt.method is 'GET'
       r.send()
     else
@@ -22,9 +25,12 @@ SSOperhero = (->
       url: '/session'
       method: 'GET'
       success: (data) ->
-        post(intent: 'set_token', value: data.token)
+        post(intent: 'token:set', value: data.token)
       error: (data) ->
-        post(intent: 'error', value: data.error, user: data.user)
+        switch data.error
+          when "not logged in" then post(intent: 'token:clear')
+          when "must log in again" then post(intent: 'error', value: data.error, user: data.user)
+          else post(intent: 'error', value: data.error)
 
   login = (login, password) ->
     if !!login and !!password
@@ -33,17 +39,26 @@ SSOperhero = (->
         method: 'POST'
         data: "user[login]=" + login + "&user[password]=" + password
         success: (data) ->
-          post(intent: 'set_token', value: data.token)
+          post(intent: 'token:set', value: data.token)
         error: (data) ->
-          post(intent: 'error', value: data.error)
+          post(intent: 'error', value: data.error, user: data.user)
+
+  logout = ->
+    request
+      url: '/logout'
+      method: 'GET',
+      success: (data) ->
+        post(intent: 'token:clear')
 
   receive_message = (event) ->
     switch event.data.intent
-      when 'token_present'
-        if event.data.value is false
-          requestToken()
+      when 'token:get'
+        console.log 'token:get'
+        requestToken()
       when 'login'
         login(event.data.login, event.data.password)
+      when 'logout'
+        logout()
 
 
   post = (message) ->
@@ -54,5 +69,6 @@ SSOperhero = (->
     init: (options) ->
       opts = options
       window.addEventListener('message', receive_message, false);
+      requestToken()
   }
 )()
