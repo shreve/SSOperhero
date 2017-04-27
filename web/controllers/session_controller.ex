@@ -35,6 +35,9 @@ defmodule Ssoperhero.SessionController do
         case client do
           nil ->
             conn
+            |> put_status(:unauthorized)
+            |> render("error.json", error: "This request didn't come from a recognized source")
+
           client ->
             render(conn, "show.json", token: Token.create(user, client))
         end

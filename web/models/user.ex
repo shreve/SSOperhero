@@ -3,6 +3,8 @@ defmodule Ssoperhero.User do
   alias Comeonin.Bcrypt
   alias Ssoperhero.User
 
+  @primary_key {:id, :binary_id, autogenerate: true}
+
   schema "users" do
     field :name, :string
     field :email, :string

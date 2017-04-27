@@ -43,6 +43,9 @@ defmodule Ssoperhero.Client do
   def find_by_domain(url) do
     uri = URI.parse(url)
     domain = "#{uri.scheme}://#{uri.host}"
+    if uri.port do
+      domain = domain <> ":#{uri.port}"
+    end
     Repo.get_by(Ssoperhero.Client, [domain: domain])
   end
 end

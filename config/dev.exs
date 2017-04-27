@@ -36,8 +36,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :ssoperhero, Ssoperhero.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "",
+  username: "jacob",
+  password: "password",
   database: "ssoperhero_dev",
   hostname: "localhost",
   pool_size: 10

@@ -5,7 +5,7 @@ defmodule Ssoperhero.Token do
   alias Ssoperhero.Client
 
   def create(%User{} = user, %Client{} = client) do
-    create(user, client, current_time + Application.get_env(:ssoperhero, :token_lifetime))
+    create(user, client, current_time() + Application.get_env(:ssoperhero, :token_lifetime))
   end
 
   def create(%User{} = user, %Client{} = client, exp) do
