@@ -5,10 +5,6 @@
 # is restricted to this project.
 use Mix.Config
 
-config :phoenix, :template_engines,
-  slim: PhoenixSlime.Engine,
-  slime: PhoenixSlime.Engine
-
 # General application configuration
 config :ssoperhero,
   ecto_repos: [Ssoperhero.Repo],
@@ -26,6 +22,11 @@ config :ssoperhero, Ssoperhero.Endpoint,
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
+# Enable .slim and .slime templates to be rendered
+config :phoenix, :template_engines,
+  slim: PhoenixSlime.Engine,
+  slime: PhoenixSlime.Engine
 
 config :ex_admin,
   repo: Ssoperhero.Repo,
