@@ -25,7 +25,6 @@ defmodule Ssoperhero.Web do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-
     end
   end
 
