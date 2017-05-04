@@ -12,10 +12,12 @@ defmodule Ssoperhero.User do
     field :encrypted_password, :string
     field :last_login_at, Ecto.DateTime
 
+    belongs_to :client, Ssoperhero.Client
+
     timestamps()
   end
 
-  @optional_fields [:name, :email, :password, :encrypted_password, :last_login_at]
+  @optional_fields [:name, :email, :password, :encrypted_password, :client_id, :last_login_at]
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -44,6 +46,7 @@ defmodule Ssoperhero.User do
     from(u in User, where: fragment("lower(?)", u.name) == ^login
                         or fragment("lower(?)", u.email) == ^login)
     |> Repo.one
+    |> Repo.preload(:client)
   end
 
   def authenticate(%User{} = user, password) do

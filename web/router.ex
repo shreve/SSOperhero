@@ -15,14 +15,12 @@ defmodule Ssoperhero.Router do
     get "/register", UserController, :new
     post "/register", UserController, :create
 
+    get "/whoami", UserController, :show
+
     get "/", SessionController, :new
     post "/login", SessionController, :create
     get "/session", SessionController, :show
     get "/logout", SessionController, :destroy
-
-    # scope "/embed", Ssoperhero do
-    #   get "/session", SessionController, :show
-    # end
   end
 
 

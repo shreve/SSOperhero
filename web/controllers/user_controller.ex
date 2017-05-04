@@ -3,6 +3,15 @@ defmodule Ssoperhero.UserController do
 
   alias Ssoperhero.User
 
+  def show(conn, %{"token" => token}) do
+    case Ssoperhero.Token.read(token) do
+      {:error, msg} ->
+        render(conn, "error.json", error: msg)
+      {:ok, token} ->
+        render(conn, "user.json", token: token)
+    end
+  end
+
   def new(conn,  _params) do
     changeset = User.changeset(%User{})
     render(conn, "new.html", changeset: changeset)

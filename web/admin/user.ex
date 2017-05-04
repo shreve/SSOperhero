@@ -9,6 +9,7 @@ defmodule Ssoperhero.ExAdmin.User do
       column :id
       column :name
       column :email
+      column :client
       column :last_login_at
     end
 
@@ -17,6 +18,7 @@ defmodule Ssoperhero.ExAdmin.User do
         input user, :name
         input user, :email
         input user, :password
+        input user, :client
       end
     end
   end

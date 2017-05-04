@@ -7,6 +7,8 @@ defmodule Ssoperhero.Client do
     field :domain, :string
     field :secret, :string
 
+    has_many :users, Ssoperhero.User
+
     timestamps()
   end
 
@@ -17,6 +19,19 @@ defmodule Ssoperhero.Client do
     struct
     |> cast(params, [:name, :domain, :secret])
     |> validate_required([:name, :domain, :secret])
+  end
+
+  def find(id) do
+    Repo.get_by(Ssoperhero.Client, [id: id])
+  end
+
+  def find_by_domain(url) do
+    uri = URI.parse(url)
+    domain = "#{uri.scheme}://#{uri.host}"
+    if uri.port do
+      domain = domain <> ":#{uri.port}"
+    end
+    Repo.get_by(Ssoperhero.Client, [domain: domain])
   end
 
   def find_by_conn(conn) do
@@ -39,14 +54,5 @@ defmodule Ssoperhero.Client do
             {:ok, client}
         end
     end
-  end
-
-  def find_by_domain(url) do
-    uri = URI.parse(url)
-    domain = "#{uri.scheme}://#{uri.host}"
-    if uri.port do
-      domain = domain <> ":#{uri.port}"
-    end
-    Repo.get_by(Ssoperhero.Client, [domain: domain])
   end
 end
