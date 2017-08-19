@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+mix admin.install
+brunch build
