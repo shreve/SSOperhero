@@ -1,3 +1,3 @@
-defmodule Ssoperhero.LayoutViewTest do
-  use Ssoperhero.ConnCase, async: true
+defmodule SSO.LayoutViewTest do
+  use SSO.ConnCase, async: true
 end

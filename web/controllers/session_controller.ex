@@ -1,38 +1,37 @@
-defmodule Ssoperhero.SessionController do
-  use Ssoperhero.Web, :controller
+defmodule SSO.SessionController do
+  use SSO.Web, :controller
 
-  alias Ssoperhero.User
-  alias Ssoperhero.Client
-  alias Ssoperhero.Token
+  alias SSO.User
+  alias SSO.Token
 
   require IEx
 
-  def action(conn, _) do
-    args = case Client.find_by_conn(conn) do
-      {:ok, client} ->
-               [
-                 conn
-                 |> put_resp_header("Access-Control-Allow-Origin", client.domain)
-                 |> put_resp_header("Access-Control-Allow-Credentials", "true"),
-                 conn.params, client]
-      {:error, _} ->
-        [conn, conn.params, nil]
-    end
-    apply(__MODULE__, action_name(conn), args)
+  # def action(conn, _) do
+  #   args = case Client.find_by_conn(conn) do
+  #     {:ok, client} ->
+  #              [
+  #                conn
+  #                |> put_resp_header("Access-Control-Allow-Origin", client.domain)
+  #                |> put_resp_header("Access-Control-Allow-Credentials", "true"),
+  #                conn.params, client]
+  #     {:error, _} ->
+  #       [conn, conn.params, nil]
+  #   end
+  #   apply(__MODULE__, action_name(conn), args)
+  # end
+
+
+  def new(conn, _assigns) do
+    render(conn, "new.html", client: conn.assigns.client || %{domain: ""})
   end
 
-
-  def new(conn, _assigns, client) do
-    render(conn, "new.html", client: client || %{domain: ""})
-  end
-
-  def create(conn, %{"user" => %{"login" => login, "password" => password}}, client) do
+  def create(conn, %{"user" => %{"login" => login, "password" => password}}) do
     case User.authenticate(login, password) do
       {:ok, user} ->
         conn = conn
         |> put_session(:user_id, user.id)
         |> put_session(:auth_exp, :os.system_time(:seconds) + 3600)
-        case client do
+        case conn.assigns.client do
           nil ->
             conn
             |> put_status(:unauthorized)
@@ -48,10 +47,10 @@ defmodule Ssoperhero.SessionController do
     end
   end
 
-  def show(conn, _assigns, client) do
+  def show(conn, _assigns) do
     case current_user(conn) do
       {:ok, user} ->
-        case client do
+        case conn.assigns.client do
           nil ->
             conn
             |> put_status(:unauthorized)
@@ -59,6 +58,7 @@ defmodule Ssoperhero.SessionController do
           client ->
             case session_expiry(conn) do
               {:ok, expiry} ->
+                user = Repo.preload user, :client
                 render(conn, "show.json", token: Token.create(user, client, expiry))
               {:error, msg} ->
                 conn
@@ -73,7 +73,7 @@ defmodule Ssoperhero.SessionController do
     end
   end
 
-  def destroy(conn, _assigns, _client) do
+  def destroy(conn, _assigns) do
     conn
     |> configure_session(drop: true)
     |> send_resp(:no_content, "")

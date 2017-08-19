@@ -1,14 +1,14 @@
-defmodule Ssoperhero.Endpoint do
-  use Phoenix.Endpoint, otp_app: :ssoperhero
+defmodule SSO.Endpoint do
+  use Phoenix.Endpoint, otp_app: :sso
 
-  # socket "/socket", Ssoperhero.UserSocket
+  # socket "/socket", SSO.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :ssoperhero, gzip: false,
+    at: "/", from: :sso, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -35,9 +35,9 @@ defmodule Ssoperhero.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session,
     store: :cookie,
-    key: "_ssoperhero_key",
+    key: "_sso_key",
     signing_salt: "sDAJeTBa",
-    domain: Application.get_env(:ssoperhero, Ssoperhero.Endpoint)[:url][:host]
+    domain: Application.get_env(:sso, SSO.Endpoint)[:url][:host]
 
-  plug Ssoperhero.Router
+  plug SSO.Router
 end

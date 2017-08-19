@@ -6,16 +6,16 @@
 use Mix.Config
 
 # General application configuration
-config :ssoperhero,
-  ecto_repos: [Ssoperhero.Repo],
+config :sso,
+  ecto_repos: [SSO.Repo],
   token_lifetime: (System.get_env("SSO_TOKEN_LIFETIME") || "3600") |> Integer.parse |> elem(0)
 
 # Configures the endpoint
-config :ssoperhero, Ssoperhero.Endpoint,
+config :sso, SSO.Endpoint,
   url: [host: System.get_env("SSO_DOMAIN") || "phoenix.dev"],
   secret_key_base: "wMVsmzpl8I3cge86Csh84Ds6vpyF6s4CIfynx61GpI10+JARETF8Q5PDSOceZhTf",
-  render_errors: [view: Ssoperhero.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Ssoperhero.PubSub,
+  render_errors: [view: SSO.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: SSO.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
@@ -29,12 +29,12 @@ config :phoenix, :template_engines,
   slime: PhoenixSlime.Engine
 
 config :ex_admin,
-  repo: Ssoperhero.Repo,
-  module: Ssoperhero,
+  repo: SSO.Repo,
+  module: SSO,
   modules: [
-    Ssoperhero.ExAdmin.Dashboard,
-    Ssoperhero.ExAdmin.User,
-    Ssoperhero.ExAdmin.Client,
+    SSO.ExAdmin.Dashboard,
+    SSO.ExAdmin.User,
+    SSO.ExAdmin.Client,
   ]
 
 # Import environment specific config. This must remain at the bottom

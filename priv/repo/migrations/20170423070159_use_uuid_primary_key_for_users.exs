@@ -1,4 +1,4 @@
-defmodule Ssoperhero.Repo.Migrations.UseUuidPrimaryKeyForUsers do
+defmodule SSO.Repo.Migrations.UseUuidPrimaryKeyForUsers do
   use Ecto.Migration
 
   def change do

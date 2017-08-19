@@ -1,4 +1,4 @@
-defmodule Ssoperhero.ChannelCase do
+defmodule SSO.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -20,22 +20,22 @@ defmodule Ssoperhero.ChannelCase do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
 
-      alias Ssoperhero.Repo
+      alias SSO.Repo
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
 
 
       # The default endpoint for testing
-      @endpoint Ssoperhero.Endpoint
+      @endpoint SSO.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Ssoperhero.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(SSO.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Ssoperhero.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(SSO.Repo, {:shared, self()})
     end
 
     :ok

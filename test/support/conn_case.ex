@@ -1,4 +1,4 @@
-defmodule Ssoperhero.ConnCase do
+defmodule SSO.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -20,23 +20,23 @@ defmodule Ssoperhero.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
-      alias Ssoperhero.Repo
+      alias SSO.Repo
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
 
-      import Ssoperhero.Router.Helpers
+      import SSO.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint Ssoperhero.Endpoint
+      @endpoint SSO.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Ssoperhero.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(SSO.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Ssoperhero.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(SSO.Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}

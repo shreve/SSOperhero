@@ -1,12 +1,12 @@
-defmodule Ssoperhero.Web do
+defmodule SSO.Web do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
 
   This can be used in your application as:
 
-      use Ssoperhero.Web, :controller
-      use Ssoperhero.Web, :view
+      use SSO.Web, :controller
+      use SSO.Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -20,7 +20,7 @@ defmodule Ssoperhero.Web do
     quote do
       use Ecto.Schema
 
-      alias Ssoperhero.Repo
+      alias SSO.Repo
 
       import Ecto
       import Ecto.Changeset
@@ -32,12 +32,12 @@ defmodule Ssoperhero.Web do
     quote do
       use Phoenix.Controller
 
-      alias Ssoperhero.Repo
+      alias SSO.Repo
 
       import Ecto
       import Ecto.Query
-      import Ssoperhero.Router.Helpers
-      import Ssoperhero.Gettext
+      import SSO.Router.Helpers
+      import SSO.Gettext
     end
   end
 
@@ -51,9 +51,9 @@ defmodule Ssoperhero.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import Ssoperhero.Router.Helpers
-      import Ssoperhero.ErrorHelpers
-      import Ssoperhero.Gettext
+      import SSO.Router.Helpers
+      import SSO.ErrorHelpers
+      import SSO.Gettext
     end
   end
 
@@ -67,10 +67,10 @@ defmodule Ssoperhero.Web do
     quote do
       use Phoenix.Channel
 
-      alias Ssoperhero.Repo
+      alias SSO.Repo
       import Ecto
       import Ecto.Query
-      import Ssoperhero.Gettext
+      import SSO.Gettext
     end
   end
 

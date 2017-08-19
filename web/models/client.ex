@@ -1,5 +1,5 @@
-defmodule Ssoperhero.Client do
-  use Ssoperhero.Web, :model
+defmodule SSO.Client do
+  use SSO.Web, :model
   require IEx
 
   schema "clients" do
@@ -7,7 +7,7 @@ defmodule Ssoperhero.Client do
     field :domain, :string
     field :secret, :string
 
-    has_many :users, Ssoperhero.User
+    has_many :users, SSO.User
 
     timestamps()
   end
@@ -22,7 +22,7 @@ defmodule Ssoperhero.Client do
   end
 
   def find(id) do
-    Repo.get_by(Ssoperhero.Client, [id: id])
+    Repo.get_by(SSO.Client, [id: id])
   end
 
   def find_by_domain(url) do
@@ -31,17 +31,13 @@ defmodule Ssoperhero.Client do
     if uri.port do
       domain = domain <> ":#{uri.port}"
     end
-    Repo.get_by(Ssoperhero.Client, [domain: domain])
+    Repo.get_by(SSO.Client, [domain: domain])
   end
 
   def find_by_conn(conn) do
     headers = conn.req_headers |> Enum.into(%{})
-    auth_domain = Application.get_env(:ssoperhero, Ssoperhero.Endpoint)[:url][:host]
-    request_domain = if String.contains?(headers["referer"] || "", "//" <> auth_domain) do
-      headers["x-origin"]
-    else
-      headers["origin"] || headers["referer"]
-    end
+    # auth_domain = Application.get_env(:sso, SSO.Endpoint)[:url][:host]
+    request_domain = headers["x-origin"] || headers["origin"] || headers["referer"]
 
     case request_domain do
       nil ->

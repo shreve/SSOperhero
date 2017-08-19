@@ -1,4 +1,4 @@
-defmodule Ssoperhero.ExAdmin.Dashboard do
+defmodule SSO.ExAdmin.Dashboard do
   use ExAdmin.Register
 
   register_page "Dashboard" do

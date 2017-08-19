@@ -1,3 +1,3 @@
-defmodule Ssoperhero.LayoutView do
-  use Ssoperhero.Web, :view
+defmodule SSO.LayoutView do
+  use SSO.Web, :view
 end

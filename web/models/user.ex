@@ -1,7 +1,7 @@
-defmodule Ssoperhero.User do
-  use Ssoperhero.Web, :model
+defmodule SSO.User do
+  use SSO.Web, :model
   alias Comeonin.Bcrypt
-  alias Ssoperhero.User
+  alias SSO.User
 
   @primary_key {:id, :binary_id, autogenerate: true}
 
@@ -12,7 +12,7 @@ defmodule Ssoperhero.User do
     field :encrypted_password, :string
     field :last_login_at, Ecto.DateTime
 
-    belongs_to :client, Ssoperhero.Client
+    belongs_to :client, SSO.Client
 
     timestamps()
   end
@@ -43,16 +43,18 @@ defmodule Ssoperhero.User do
 
   def find_by_login(login) do
     login = login |> String.strip |> String.downcase
-    from(u in User, where: fragment("lower(?)", u.name) == ^login
-                        or fragment("lower(?)", u.email) == ^login)
+
+    from(u in User,
+         where: fragment("lower(?)", u.name) == ^login
+         or fragment("lower(?)", u.email) == ^login,
+         preload: [:client])
     |> Repo.one
-    |> Repo.preload(:client)
   end
 
   def authenticate(%User{} = user, password) do
     case Bcrypt.checkpw(password, user.encrypted_password) do
       false ->
-        {:error, "not a valid password"}
+        {:error, "Password incorrect"}
       true ->
         {:ok, user}
     end
@@ -61,7 +63,7 @@ defmodule Ssoperhero.User do
   def authenticate(login, password) do
     case find_by_login(login) do
       nil ->
-        {:error, "not a valid user"}
+        {:error, "Login not recognized"}
       user ->
         authenticate(user, password)
     end

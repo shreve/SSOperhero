@@ -1,4 +1,4 @@
-defmodule Ssoperhero.ErrorHelpers do
+defmodule SSO.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -32,9 +32,9 @@ defmodule Ssoperhero.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(Ssoperhero.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(SSO.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(Ssoperhero.Gettext, "errors", msg, opts)
+      Gettext.dgettext(SSO.Gettext, "errors", msg, opts)
     end
   end
 end

@@ -1,7 +1,7 @@
-defmodule Ssoperhero.ClientTest do
-  use Ssoperhero.ModelCase
+defmodule SSO.ClientTest do
+  use SSO.ModelCase
 
-  alias Ssoperhero.Client
+  alias SSO.Client
 
   @valid_attrs %{domain: "some content", secret: "some content"}
   @invalid_attrs %{}

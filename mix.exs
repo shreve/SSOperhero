@@ -1,8 +1,8 @@
-defmodule Ssoperhero.Mixfile do
+defmodule SSO.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :ssoperhero,
+    [app: :sso,
      version: "0.0.1",
      elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
@@ -17,7 +17,7 @@ defmodule Ssoperhero.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {Ssoperhero, []},
+    [mod: {SSO, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
                     :phoenix_ecto, :postgrex, :comeonin, :joken, :phoenix_slime]]
   end
@@ -30,17 +30,20 @@ defmodule Ssoperhero.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.2.0"},
+    [{:phoenix, "~> 1.3.0"},
      {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.0"},
-     {:postgrex, ">= 0.0.0"},
+     {:phoenix_ecto, "~> 3.2"},
+     {:postgrex, ">= 0.13.3"},
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
 
      {:phoenix_slime, "~> 0.6.0"}, # Templating language
-     {:ex_admin, github: "smpallen99/ex_admin"}, # Admin interface
+     {:ex_admin, "~> 0.8", path: "/home/jacob/Downloads/ex_admin"}, # Admin interface
+     # {:ex_admin, "~> 0.8"},
+     # {:scrivener_ecto, "~> 1.0.2"},
+     # {:ex_queb, "~> 0.2"},
      {:comeonin, "~> 2.5"}, # Hashing libraries
      {:joken, "~> 1.1"} # JSON web token generator
     ]

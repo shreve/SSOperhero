@@ -1,4 +1,4 @@
-defmodule Ssoperhero.Repo.Migrations.CreateClient do
+defmodule SSO.Repo.Migrations.CreateClient do
   use Ecto.Migration
 
   def change do

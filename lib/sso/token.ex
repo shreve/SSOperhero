@@ -1,16 +1,16 @@
-defmodule Ssoperhero.Token do
+defmodule SSO.Token do
   import Joken
 
-  alias Ssoperhero.User
-  alias Ssoperhero.Client
+  alias SSO.User
+  alias SSO.Client
 
   def create(%User{} = user, %Client{} = client) do
-    create(user, client, current_time() + Application.get_env(:ssoperhero, :token_lifetime))
+    create(user, client, current_time() + Application.get_env(:sso, :token_lifetime))
   end
 
   def create(%User{} = user, %Client{} = client, exp) do
     user
-    |> render
+    |> render(client)
     |> token
     |> with_signer(hs256(client.secret))
     |> with_claim("exp", exp)
@@ -41,10 +41,10 @@ defmodule Ssoperhero.Token do
     end
   end
 
-  defp render(%User{} = user) do
+  defp render(%User{} = user, client) do
     %{ "id" => user.id,
        "username" => user.name,
        "email" => user.email,
-       "client_id" => user.client.id }
+       "client_id" => client.id }
   end
 end

@@ -1,5 +1,5 @@
-defmodule Ssoperhero.Router do
-  use Ssoperhero.Web, :router
+defmodule SSO.Router do
+  use SSO.Web, :router
   use ExAdmin.Router
 
   pipeline :browser do
@@ -7,9 +7,11 @@ defmodule Ssoperhero.Router do
     plug :fetch_session
     plug :fetch_flash
     # plug :put_secure_browser_headers
+
+    plug SSO.Plugs.Client
   end
 
-  scope "/", Ssoperhero do
+  scope "/", SSO do
     pipe_through :browser
 
     get "/register", UserController, :new

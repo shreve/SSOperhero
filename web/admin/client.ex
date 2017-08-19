@@ -1,7 +1,7 @@
-defmodule Ssoperhero.ExAdmin.Client do
+defmodule SSO.ExAdmin.Client do
   use ExAdmin.Register
 
-  register_resource Ssoperhero.Client do
+  register_resource SSO.Client do
 
     index do
       column :id
@@ -10,4 +10,9 @@ defmodule Ssoperhero.ExAdmin.Client do
       actions
     end
   end
+
+end
+
+defimpl ExAdmin.Render, for: SSO.Client do
+  def to_string(client), do: client.id
 end

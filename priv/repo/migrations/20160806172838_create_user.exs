@@ -1,4 +1,4 @@
-defmodule Ssoperhero.Repo.Migrations.CreateUser do
+defmodule SSO.Repo.Migrations.CreateUser do
   use Ecto.Migration
 
   def change do
@@ -11,5 +11,6 @@ defmodule Ssoperhero.Repo.Migrations.CreateUser do
       timestamps()
     end
 
+    create index(:users, [:email])
   end
 end

@@ -1,7 +1,7 @@
-defmodule Ssoperhero.ExAdmin.User do
+defmodule SSO.ExAdmin.User do
   use ExAdmin.Register
 
-  register_resource Ssoperhero.User do
+  register_resource SSO.User do
 
     filter except: [:encrypted_password]
 

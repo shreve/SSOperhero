@@ -1,3 +1,3 @@
-defmodule Ssoperhero.PageViewTest do
-  use Ssoperhero.ConnCase, async: true
+defmodule SSO.PageViewTest do
+  use SSO.ConnCase, async: true
 end

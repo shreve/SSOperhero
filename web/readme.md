@@ -5,7 +5,7 @@ This directory is the bulk of the app, including all code related to the web-acc
 
 | File | Description |
 |------|-------------|
-| web.ex | Defines all components, models, controllers, views, router, and channel by way of importing and aliasing other modules. These components are used by `use Ssoperhero.Web, :component`. |
+| web.ex | Defines all components, models, controllers, views, router, and channel by way of importing and aliasing other modules. These components are used by `use SSO.Web, :component`. |
 | router.ex | Defines all the routes available to the app, and does some basic header manipulation/filtering via pipelines. |
 | gettext.ex | Enables Internationalization via gettext library. |
 | admin/ | Contains definitions of objects available to ExAdmin |

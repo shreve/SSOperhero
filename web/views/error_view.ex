@@ -1,5 +1,5 @@
-defmodule Ssoperhero.ErrorView do
-  use Ssoperhero.Web, :view
+defmodule SSO.ErrorView do
+  use SSO.Web, :view
 
   def render("404.json", _assigns) do
     %{ "error" => "Page not found" }
@@ -7,6 +7,10 @@ defmodule Ssoperhero.ErrorView do
 
   def render("500.json", _assigns) do
     %{ "error" => "Internal server error" }
+  end
+
+  def render("error.json", %{error: error}) do
+    %{ "error" => error }
   end
 
   # In case no render clause matches or no

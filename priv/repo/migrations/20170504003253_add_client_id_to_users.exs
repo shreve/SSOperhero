@@ -1,4 +1,4 @@
-defmodule Ssoperhero.Repo.Migrations.AddClientIdToUsers do
+defmodule SSO.Repo.Migrations.AddClientIdToUsers do
   use Ecto.Migration
 
   def change do

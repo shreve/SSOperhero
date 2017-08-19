@@ -1,21 +1,21 @@
-defmodule Ssoperhero.ErrorViewTest do
-  use Ssoperhero.ConnCase, async: true
+defmodule SSO.ErrorViewTest do
+  use SSO.ConnCase, async: true
 
   # Bring render/3 and render_to_string/3 for testing custom views
   import Phoenix.View
 
   test "renders 404.html" do
-    assert render_to_string(Ssoperhero.ErrorView, "404.html", []) ==
+    assert render_to_string(SSO.ErrorView, "404.html", []) ==
            "Page not found"
   end
 
   test "render 500.html" do
-    assert render_to_string(Ssoperhero.ErrorView, "500.html", []) ==
+    assert render_to_string(SSO.ErrorView, "500.html", []) ==
            "Internal server error"
   end
 
   test "render any other" do
-    assert render_to_string(Ssoperhero.ErrorView, "505.html", []) ==
+    assert render_to_string(SSO.ErrorView, "505.html", []) ==
            "Internal server error"
   end
 end

@@ -6,8 +6,4 @@ html lang="en"
     meta name="viewport" content="width=device-width, initial-scale=1"
     script src=static_path(@conn,"/js/provider.js")
   body
-    div class="container"
-      = render("_flashes.html", conn: @conn)
-
-      main role="main"
-        = render @view_module, @view_template, assigns
+    = render @view_module, @view_template, assigns

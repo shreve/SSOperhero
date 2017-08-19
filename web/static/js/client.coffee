@@ -2,21 +2,24 @@ SSOperhero = (->
   provider = null
   opts =
     loginRequired: ->
-      log('login required')
+      log('Placeholder function. Init SSOperhero with loginRequired function to replace this.')
     loginExpired: (user) ->
       log('login expired. renew for user: ' + JSON.stringify(user))
     loginSuccess: ->
-      log('login succeeded')
+      log('Placeholder function. Init SSOperhero with loginSuccess function to replace this.')
+    logoutSuccess: ->
+      log('Placeholder function. Init SSOperhero with logoutSuccess function to replace this.')
 
   extend = (orig, add) ->
     for key, val of add
       orig[key] = val
     orig
 
-  log = ->
-    console.log('[SSOperhero] ' + (JSON.stringify(obj) for obj in arguments).join(', '))
+  log = console.log.bind(window.console, '[SSOperhero Client]')
+  log = (->) if location.hostname isnt 'localhost'
 
   post = (data) ->
+    log("[message out]", data)
     provider.contentWindow.postMessage(data, opts.provider)
 
   trigger = (type, data) ->
@@ -24,6 +27,7 @@ SSOperhero = (->
     window.dispatchEvent(event)
 
   receiveMessage = (event) ->
+    log "[message in]", event.data
     switch event.data.intent
       when 'token:set'
         login = !localStorage.getItem('token')
@@ -39,13 +43,16 @@ SSOperhero = (->
             opts.loginExpired(event.data.user)
 
   receiveStorage = (event) ->
+    log("[storage]", event)
     if SSOperhero.loggedIn()
       opts.loginSuccess()
     else
       opts.logoutSuccess()
 
   addProviderWindow = ->
+    return if document.getElementById('ssoperhero-provider-window')
     provider = document.createElement('iframe');
+    provider.id = 'ssoperhero-provider-window'
     provider.src = opts.provider
     provider.style.width = provider.style.height = '0'
     provider.style.border = '0'
@@ -54,6 +61,7 @@ SSOperhero = (->
   {
     init: (options) ->
       opts = extend(opts, options)
+
 
       window.addEventListener('message', receiveMessage, false)
       window.addEventListener('storage', receiveStorage, false)
@@ -69,12 +77,19 @@ SSOperhero = (->
     logout: ->
       post(intent: 'logout')
 
+    register: (values) ->
+      post(intent: 'register', email: values.email, name: values.name, password: values.password)
+
+    forgotPass: (values) ->
+      post(intent: 'forgotPass', login: values.login)
+
     loggedIn: ->
       t = @token()
-      t and t.expires and (t.expires > (new Date())) and t.payload.id and t.payload.sub is "User"
+      t and t.expires and (t.expires > (new Date())) and t.payload.id
 
     token: ->
       if localStorage.getItem('token')
+        log '[token]', localStorage.getItem('token')
         bits = localStorage.getItem('token').split('.')
         payload = JSON.parse(atob(bits[1]))
         expires = new Date()
