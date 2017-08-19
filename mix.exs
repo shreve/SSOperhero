@@ -40,7 +40,8 @@ defmodule SSO.Mixfile do
      {:cowboy, "~> 1.0"},
 
      {:phoenix_slime, "~> 0.6.0"}, # Templating language
-     {:ex_admin, "~> 0.8", path: "/home/jacob/Downloads/ex_admin"}, # Admin interface
+     # {:ex_admin, "~> 0.8", path: "/home/jacob/code/tinkery/ex_admin"}, # Admin interface
+     {:ex_admin, "~> 0.8", git: "https://github.com/SuguToys/ex_admin.git"}, # Admin interface
      # {:ex_admin, "~> 0.8"},
      # {:scrivener_ecto, "~> 1.0.2"},
      # {:ex_queb, "~> 0.2"},
