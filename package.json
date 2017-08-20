@@ -10,6 +10,7 @@
     "phoenix_html": "file:deps/phoenix_html"
   },
   "devDependencies": {
+    "brunch": "^2.10.10",
     "coffee-script-brunch": "^2.10.2",
     "css-brunch": "^2.10.0",
     "grunt": "~1.0.0",
